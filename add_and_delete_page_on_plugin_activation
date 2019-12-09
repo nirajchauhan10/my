@@ -1,0 +1,50 @@
+register_activation_hook( BEARDBOT_PLUGIN_FILE, 'beardbot_plugin_activation' );
+function beardbot_plugin_activation() {
+  
+  if ( ! current_user_can( 'activate_plugins' ) ) return;
+  
+  global $wpdb;
+ 
+
+
+  if ( null === $wpdb->get_row( "SELECT post_name FROM {$wpdb->prefix}posts WHERE post_name = 'new-page-slug'", 'ARRAY_A'  )) {
+      
+      
+    $current_user = wp_get_current_user();
+   
+
+      
+    // create post object
+    $post= array(
+      'post_title'  => __( 'Rambo Page' ),
+      'post_status' => 'publish',
+      'post_author' => $current_user->ID,
+      'post_type'   => 'page',
+     'post_name' => 'new-rascal'
+           
+        
+        );
+      $newvalue = wp_insert_post( $post, false );
+      update_option( 'vidpage', $newvalue );
+    
+    // insert the post into the database
+    
+   
+  
+   
+      
+
+  
+
+}
+}
+function deactivate_plugin() {
+
+    $page_id = get_option('vidpage');
+    wp_delete_post($page_id);
+
+}
+register_deactivation_hook( __FILE__, 'deactivate_plugin' );
+
+
+
