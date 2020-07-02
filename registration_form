@@ -1,0 +1,1 @@
+<?php echo pippin_registration_form_fields(); ?>
