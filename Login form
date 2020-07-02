@@ -1,0 +1,1 @@
+<?php echo pippin_login_form(); ?>
